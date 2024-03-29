@@ -1,0 +1,37 @@
+run:
+  deadline: 120s
+  aggregate: true
+  tests: true
+  skip-files:
+    - mock.go
+    - _test.go
+
+linters:
+  disable-all: true
+  enable:
+    - gosec
+    - goconst
+    - gocyclo
+    - gofmt
+    - goimports
+    - revive
+    - ineffassign
+    - lll
+    - misspell
+    - vet
+    - vetshadow
+    - staticcheck
+    - unconvert
+    - unused
+
+linters-settings:
+  goling:
+    min-confidence: 0.9
+  lll:
+    line-length: 140
+  gocyclo:
+    min-complexity: 10
+  revive:
+    rules:
+      - name: unused-parameter
+        disabled: true
