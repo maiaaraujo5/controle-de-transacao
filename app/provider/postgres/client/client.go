@@ -2,10 +2,11 @@ package client
 
 import (
 	"database/sql"
+	"log/slog"
+
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/dialect/pgdialect"
 	"github.com/uptrace/bun/driver/pgdriver"
-	"log/slog"
 )
 
 func NewClient(options *Options) (*bun.DB, error) {

@@ -12,6 +12,7 @@ func Module() fx.Option {
 		fx.Provide(validator.New),
 		service.Module(),
 		createAccount(),
+		findAccount(),
 	)
 }
 
@@ -20,6 +21,17 @@ func createAccount() fx.Option {
 		fx.Provide(
 			fx.Annotate(
 				handler.NewCreateAccount,
+				fx.ResultTags(`group:"handlers"`),
+				fx.As(new(handler.Handler))),
+		),
+	)
+}
+
+func findAccount() fx.Option {
+	return fx.Options(
+		fx.Provide(
+			fx.Annotate(
+				handler.NewFindAccount,
 				fx.ResultTags(`group:"handlers"`),
 				fx.As(new(handler.Handler))),
 		),

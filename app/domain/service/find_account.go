@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+
 	domainError "github.com/maiaaraujo5/controle-de-transacao/app/domain/errors"
 
 	"github.com/maiaaraujo5/controle-de-transacao/app/domain/model"

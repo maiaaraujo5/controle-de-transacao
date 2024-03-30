@@ -2,6 +2,7 @@ package echo
 
 import (
 	"context"
+
 	"github.com/maiaaraujo5/controle-de-transacao/app/server/rest/middlewares"
 
 	"github.com/labstack/echo/v4"

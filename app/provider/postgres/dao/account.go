@@ -38,6 +38,9 @@ func (a *Account) FindByID(ctx context.Context, ID int64) (*model.Account, error
 
 	err := a.db.NewSelect().Model(dbM).Where("id=?", ID).Scan(ctx)
 	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return nil, nil
+		}
 		slog.Error("error while trying to find account by id", "err:", err)
 		return nil, err
 	}

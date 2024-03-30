@@ -1,9 +1,10 @@
 package middlewares
 
 import (
+	"net/http"
+
 	"github.com/labstack/echo/v4"
 	"github.com/maiaaraujo5/controle-de-transacao/app/domain/errors"
-	"net/http"
 )
 
 type Error struct {
