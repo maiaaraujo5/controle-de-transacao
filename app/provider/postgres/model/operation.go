@@ -6,5 +6,5 @@ type Operation struct {
 	bun.BaseModel `bun:"table:operations_types"`
 
 	ID          int64  `bun:"id,pk"`
-	description string `bun:"description"`
+	description string `bun:"description"` //nolint
 }

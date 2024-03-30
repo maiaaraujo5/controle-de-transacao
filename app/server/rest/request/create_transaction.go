@@ -6,9 +6,9 @@ import (
 )
 
 type CreateTransaction struct {
-	AccountID       int64   `json:"account_id"`
-	OperationTypeID int64   `json:"operation_type_id"`
-	Amount          float64 `json:"amount"`
+	AccountID       int64   `json:"account_id" validate:"required"`
+	OperationTypeID int64   `json:"operation_type_id" validate:"required"`
+	Amount          float64 `json:"amount" validate:"required"`
 }
 
 func NewCreateTransaction(e echo.Context) (*CreateTransaction, error) {

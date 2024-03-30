@@ -1,8 +1,9 @@
 package response
 
 import (
-	"github.com/maiaaraujo5/controle-de-transacao/app/domain/model"
 	"time"
+
+	"github.com/maiaaraujo5/controle-de-transacao/app/domain/model"
 )
 
 type Transaction struct {
