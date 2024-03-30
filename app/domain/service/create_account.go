@@ -3,6 +3,7 @@ package service
 import (
 	"context"
 	"errors"
+	domainError "github.com/maiaaraujo5/controle-de-transacao/app/domain/errors"
 
 	"github.com/maiaaraujo5/controle-de-transacao/app/domain/model"
 	"github.com/maiaaraujo5/controle-de-transacao/app/domain/repository"
@@ -29,7 +30,7 @@ func (a *CreatorAccount) Create(ctx context.Context, account *model.Account) (*m
 	}
 
 	if find != nil {
-		return nil, errors.New("an account with this document number already exists")
+		return nil, domainError.AccountAlreadyExists("an account with this document number already exists")
 	}
 
 	account, err = a.repository.Save(ctx, account)

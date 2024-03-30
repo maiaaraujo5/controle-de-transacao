@@ -41,17 +41,29 @@ func (_m *Transaction) FindByID(ctx context.Context, ID string) (*model.Transact
 }
 
 // Save provides a mock function with given fields: ctx, transaction
-func (_m *Transaction) Save(ctx context.Context, transaction *model.Transaction) error {
+func (_m *Transaction) Save(ctx context.Context, transaction *model.Transaction) (*model.Transaction, error) {
 	ret := _m.Called(ctx, transaction)
 
-	var r0 error
-	if rf, ok := ret.Get(0).(func(context.Context, *model.Transaction) error); ok {
+	var r0 *model.Transaction
+	var r1 error
+	if rf, ok := ret.Get(0).(func(context.Context, *model.Transaction) (*model.Transaction, error)); ok {
+		return rf(ctx, transaction)
+	}
+	if rf, ok := ret.Get(0).(func(context.Context, *model.Transaction) *model.Transaction); ok {
 		r0 = rf(ctx, transaction)
 	} else {
-		r0 = ret.Error(0)
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*model.Transaction)
+		}
 	}
 
-	return r0
+	if rf, ok := ret.Get(1).(func(context.Context, *model.Transaction) error); ok {
+		r1 = rf(ctx, transaction)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
 }
 
 // NewTransaction creates a new instance of Transaction. It also registers a testing interface on the mock and a cleanup function to assert the mocks expectations.

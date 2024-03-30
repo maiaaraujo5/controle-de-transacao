@@ -1,6 +1,7 @@
 package request
 
 import (
+	"github.com/labstack/echo/v4"
 	"github.com/maiaaraujo5/controle-de-transacao/app/domain/model"
 )
 
@@ -10,10 +11,20 @@ type CreateTransaction struct {
 	Amount          float64 `json:"amount"`
 }
 
+func NewCreateTransaction(e echo.Context) (*CreateTransaction, error) {
+	c := new(CreateTransaction)
+	err := e.Bind(c)
+	if err != nil {
+		return nil, err
+	}
+
+	return c, nil
+}
+
 func (c *CreateTransaction) ToDomainModel() *model.Transaction {
 	return &model.Transaction{
-		AccountID:   c.AccountID,
-		OperationID: model.OperationType(c.OperationTypeID),
-		Amount:      c.Amount,
+		AccountID: c.AccountID,
+		Operation: model.OperationType(c.OperationTypeID),
+		Amount:    c.Amount,
 	}
 }

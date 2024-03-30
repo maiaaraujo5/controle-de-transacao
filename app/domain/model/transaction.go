@@ -3,9 +3,9 @@ package model
 import "time"
 
 type Transaction struct {
-	ID          string
-	AccountID   int64
-	OperationID OperationType
-	Amount      float64
-	EventDate   time.Time
+	ID        int64
+	AccountID int64
+	Operation OperationType
+	Amount    float64
+	EventDate time.Time
 }

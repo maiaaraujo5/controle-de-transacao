@@ -3,17 +3,17 @@ package model
 type OperationType int64
 
 const (
-	CompraAVista OperationType = iota + 1
-	CompraParcelada
-	Saque
-	Pagamento
+	CashPayment OperationType = iota + 1
+	InstallmentPayment
+	Withdraw
+	Payment
 )
 
 var operationTypeNames = map[OperationType]string{
-	CompraAVista:    "Compra a Vista",
-	CompraParcelada: "Compra Parcelada",
-	Saque:           "Saque",
-	Pagamento:       "Pagamento",
+	CashPayment:        "Cash Payment",
+	InstallmentPayment: "Installment Payment",
+	Withdraw:           "Withdraw",
+	Payment:            "Payment",
 }
 
 func (ot OperationType) String() string {
@@ -31,4 +31,8 @@ func (ot OperationType) IsValid() bool {
 
 func (ot OperationType) Index() int64 {
 	return int64(ot)
+}
+
+func (ot OperationType) IsPayment() bool {
+	return ot == Payment
 }

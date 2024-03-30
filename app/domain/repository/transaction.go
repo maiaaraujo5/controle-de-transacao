@@ -7,6 +7,6 @@ import (
 )
 
 type Transaction interface {
-	Save(ctx context.Context, transaction *model.Transaction) error
+	Save(ctx context.Context, transaction *model.Transaction) (*model.Transaction, error)
 	FindByID(ctx context.Context, ID string) (*model.Transaction, error)
 }

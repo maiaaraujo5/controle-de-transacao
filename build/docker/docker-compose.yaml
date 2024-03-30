@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  postgres:
+    container_name: pismo-postgres
+    image: postgres:16.2-alpine3.18
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: 'pismo'
+      POSTGRES_PASSWORD: 'pismo'
+      POSTGRES_DB: 'pismo'
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
