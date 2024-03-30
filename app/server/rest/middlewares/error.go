@@ -28,6 +28,10 @@ func switchError(c echo.Context, err error) error {
 	switch {
 	case errors.IsAccountAlreadyExists(err):
 		return c.JSON(http.StatusConflict, newError(http.StatusConflict, err.Error()))
+	case errors.IsOperationNotValid(err):
+		return c.JSON(http.StatusPreconditionFailed, newError(http.StatusPreconditionFailed, err.Error()))
+	case errors.IsAccountNotExists(err):
+		return c.JSON(http.StatusNotFound, newError(http.StatusNotFound, err.Error()))
 	default:
 		return c.JSON(http.StatusInternalServerError, newError(http.StatusInternalServerError, err.Error()))
 	}

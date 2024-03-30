@@ -2,7 +2,7 @@ package service
 
 import (
 	"context"
-	"errors"
+	domainError "github.com/maiaaraujo5/controle-de-transacao/app/domain/errors"
 	"time"
 
 	"github.com/maiaaraujo5/controle-de-transacao/app/domain/model"
@@ -27,7 +27,7 @@ func NewTransactionCreator(transaction repository.Transaction, finder AccountFin
 
 func (c *CreatorTransaction) Create(ctx context.Context, transaction *model.Transaction) (*model.Transaction, error) {
 	if !transaction.Operation.IsValid() {
-		return nil, errors.New("transaction is not valid")
+		return nil, domainError.OperationNotValid("operation is not valid")
 	}
 
 	_, err := c.accountFinder.Finder(ctx, transaction.AccountID)

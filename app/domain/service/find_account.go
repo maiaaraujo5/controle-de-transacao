@@ -2,7 +2,7 @@ package service
 
 import (
 	"context"
-	"errors"
+	domainError "github.com/maiaaraujo5/controle-de-transacao/app/domain/errors"
 
 	"github.com/maiaaraujo5/controle-de-transacao/app/domain/model"
 	"github.com/maiaaraujo5/controle-de-transacao/app/domain/repository"
@@ -29,7 +29,7 @@ func (f *FinderAccount) Finder(ctx context.Context, ID int64) (*model.Account, e
 	}
 
 	if account == nil {
-		return nil, errors.New("no account was found")
+		return nil, domainError.AccountNotExists("no account was found")
 	}
 
 	return account, nil

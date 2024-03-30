@@ -2,20 +2,21 @@ package errors
 
 import "errors"
 
-type AccountAlreadyExistss struct {
+type accountAlreadyExists struct {
 	Message string
 }
 
 func AccountAlreadyExists(message string) error {
-	return &AccountAlreadyExistss{
+	return &accountAlreadyExists{
 		message,
 	}
 }
 
-func (a AccountAlreadyExistss) Error() string {
+func (a *accountAlreadyExists) Error() string {
 	return a.Message
 }
 
 func IsAccountAlreadyExists(err error) bool {
-	return errors.Is(err, new(AccountAlreadyExistss))
+	var myErr *accountAlreadyExists
+	return errors.As(err, &myErr)
 }
