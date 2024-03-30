@@ -13,6 +13,7 @@ func Module() fx.Option {
 		service.Module(),
 		createAccount(),
 		findAccount(),
+		createTransaction(),
 	)
 }
 
@@ -32,6 +33,17 @@ func findAccount() fx.Option {
 		fx.Provide(
 			fx.Annotate(
 				handler.NewFindAccount,
+				fx.ResultTags(`group:"handlers"`),
+				fx.As(new(handler.Handler))),
+		),
+	)
+}
+
+func createTransaction() fx.Option {
+	return fx.Options(
+		fx.Provide(
+			fx.Annotate(
+				handler.NewCreateTransaction,
 				fx.ResultTags(`group:"handlers"`),
 				fx.As(new(handler.Handler))),
 		),
