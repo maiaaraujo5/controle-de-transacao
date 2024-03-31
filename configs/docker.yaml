@@ -1,0 +1,7 @@
+app:
+  provider:
+    postgres:
+      url: postgres:5432
+      username: pismo
+      password: pismo
+      database: pismo

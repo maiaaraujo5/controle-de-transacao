@@ -1,11 +1,21 @@
 version: '3'
 
 services:
+  controle-transacao:
+    restart: on-failure
+    depends_on: [postgres]
+    container_name: controle-transacao-pismo
+    image: maiaaraujo5/controle-de-transacao:latest
+    ports:
+      - "8080:8080"
+    environment:
+      CONF: ./configs/docker.yaml
+
   postgres:
     container_name: pismo-postgres
     image: postgres:16.2-alpine3.18
     ports:
-      - 5432:5432
+      - "5432:5432"
     environment:
       POSTGRES_USER: 'pismo'
       POSTGRES_PASSWORD: 'pismo'
