@@ -12,3 +12,6 @@ docker-compose-down:
 
 docker-build:
 	docker build -t maiaaraujo5/controle-de-transacao:latest -f ./build/docker/Dockerfile .
+
+generate-swagger:
+	swag init --dir ./cmd/,./app/server/rest --output ./docs

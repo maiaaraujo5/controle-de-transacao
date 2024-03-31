@@ -14,6 +14,7 @@ func Module() fx.Option {
 		createAccount(),
 		findAccount(),
 		createTransaction(),
+		swagger(),
 	)
 }
 
@@ -44,6 +45,17 @@ func createTransaction() fx.Option {
 		fx.Provide(
 			fx.Annotate(
 				handler.NewCreateTransaction,
+				fx.ResultTags(`group:"handlers"`),
+				fx.As(new(handler.Handler))),
+		),
+	)
+}
+
+func swagger() fx.Option {
+	return fx.Options(
+		fx.Provide(
+			fx.Annotate(
+				handler.NewSwagger,
 				fx.ResultTags(`group:"handlers"`),
 				fx.As(new(handler.Handler))),
 		),

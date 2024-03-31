@@ -11,8 +11,12 @@ import (
 )
 
 type Error struct {
-	Code            int               `json:"code"`
-	Description     string            `json:"description"`
+	Code        int    `json:"code"`
+	Description string `json:"description"`
+}
+
+type ErrorValidation struct {
+	Error
 	ValidationError []ValidationError `json:"validationError,omitempty"`
 }
 
@@ -58,10 +62,12 @@ func newError(code int, message string) *Error {
 	}
 }
 
-func newValidationError(err error) *Error {
-	e := &Error{
-		Code:        http.StatusUnprocessableEntity,
-		Description: "The server understands the content type of the request entity but was unable to process the contained instructions.",
+func newValidationError(err error) *ErrorValidation {
+	e := &ErrorValidation{
+		Error: Error{
+			Code:        http.StatusUnprocessableEntity,
+			Description: "The server understands the content type of the request entity but was unable to process the contained instructions.",
+		},
 	}
 
 	var validations []ValidationError

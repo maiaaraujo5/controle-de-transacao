@@ -27,6 +27,19 @@ func (h *FindAccount) RegisterRoute(instance *echo.Echo) {
 	instance.GET("/v1/accounts/:accountId", h.Handle)
 }
 
+// Handle godoc
+//
+//	@Summary		Find an account
+//	@Description	Find an account by given document number
+//	@Accept			json
+//	@Produce		json
+//	@Param			accountId	path		int	true	"ID account"
+//	@Success		200		{object}	response.Account
+//	@Failure		400		{object}	middlewares.Error
+//	@Failure		404		{object}	middlewares.Error
+//	@Failure		422		{object}	middlewares.ErrorValidation
+//	@Failure		500		{object}	middlewares.Error
+//	@Router			/v1/accounts/{accountId} [get]
 func (h *FindAccount) Handle(c echo.Context) error {
 	ctx := c.Request().Context()
 

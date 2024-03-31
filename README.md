@@ -20,6 +20,8 @@ Esta aplicação tem como objetivo simular operações em uma conta
 - [FX](https://github.com/uber-go/fx)
 - [Testify](https://github.com/stretchr/testify)
 - [Monkey](https://github.com/bouk/monkey)
+- [Swag](https://github.com/swaggo/swag)
+- [Echo-Swagger](https://github.com/swaggo/echo-swagger)
 
 ## Checklist de Funcionalidades
 

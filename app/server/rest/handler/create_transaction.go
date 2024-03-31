@@ -27,6 +27,18 @@ func (h *CreateTransaction) RegisterRoute(instance *echo.Echo) {
 	instance.POST("/v1/transactions", h.Handle)
 }
 
+// Handle godoc
+//
+//	@Summary		Create an account
+//	@Description	Create an account by given document number
+//	@Accept			json
+//	@Produce		json
+//	@Param			account	body		request.CreateTransaction	true	"body for create one transaction"
+//	@Success		201		{object}	response.Transaction
+//	@Failure		400		{object}	middlewares.Error
+//	@Failure		422		{object}	middlewares.ErrorValidation
+//	@Failure		500		{object}	middlewares.Error
+//	@Router			/v1/transaction [post]
 func (h *CreateTransaction) Handle(c echo.Context) error {
 	ctx := c.Request().Context()
 
