@@ -138,6 +138,21 @@ func (s *CreateAccountSuite) TestCreateAccount_Handle() {
 			},
 		},
 		{
+			name: "should return HTTP 400 BadRequest when document_number was sent in another type",
+			fields: fields{
+				service:   new(mocks.AccountCreator),
+				validator: validator.New(),
+			},
+			args: args{
+				body: strings.NewReader(`{"document_number":123}`),
+			},
+			wantErr:            false,
+			wantHttpStatusCode: http.StatusBadRequest,
+			responseBody:       `{"code":400,"description":"Unmarshal type error: expected=string, got=number, field=document_number, offset=22"}` + "\n",
+			mock: func(service *mocks.AccountCreator) {
+			},
+		},
+		{
 			name: "should return HTTP 422 StatusUnprocessableEntity when dont send document_number",
 			fields: fields{
 				service:   new(mocks.AccountCreator),

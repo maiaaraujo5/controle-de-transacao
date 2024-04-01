@@ -107,6 +107,66 @@ func (s *CreateTransactionSuite) TestCreateTransaction_Handle() {
 			},
 		},
 		{
+			name: "should return HTTP 422 when account id was not sent",
+			fields: fields{
+				service:   new(mocks.TransactionCreator),
+				validator: validator.New(),
+			},
+			args: args{
+				body: strings.NewReader(`{"operation_type_id":1,"amount":100.0}`),
+			},
+			wantErr:            false,
+			wantHttpStatusCode: http.StatusUnprocessableEntity,
+			responseBody:       `{"code":422,"description":"The server understands the content type of the request entity but was unable to process the contained instructions.","validationError":[{"path":"CreateTransaction.AccountID","field":"AccountID","value":0,"message":"{AccountID} is a required field with type int64"}]}` + "\n",
+			mock: func(service *mocks.TransactionCreator) {
+			},
+		},
+		{
+			name: "should return HTTP 422 when operation_type_id was not sent",
+			fields: fields{
+				service:   new(mocks.TransactionCreator),
+				validator: validator.New(),
+			},
+			args: args{
+				body: strings.NewReader(`{"account_id":1,"amount":100.0}`),
+			},
+			wantErr:            false,
+			wantHttpStatusCode: http.StatusUnprocessableEntity,
+			responseBody:       `{"code":422,"description":"The server understands the content type of the request entity but was unable to process the contained instructions.","validationError":[{"path":"CreateTransaction.OperationTypeID","field":"OperationTypeID","value":0,"message":"{OperationTypeID} is a required field with type int64"}]}` + "\n",
+			mock: func(service *mocks.TransactionCreator) {
+			},
+		},
+		{
+			name: "should return HTTP 422 when amount was not sent",
+			fields: fields{
+				service:   new(mocks.TransactionCreator),
+				validator: validator.New(),
+			},
+			args: args{
+				body: strings.NewReader(`{"account_id":1,"operation_type_id":1}`),
+			},
+			wantErr:            false,
+			wantHttpStatusCode: http.StatusUnprocessableEntity,
+			responseBody:       `{"code":422,"description":"The server understands the content type of the request entity but was unable to process the contained instructions.","validationError":[{"path":"CreateTransaction.Amount","field":"Amount","value":0,"message":"{Amount} is a required field with type float64"}]}` + "\n",
+			mock: func(service *mocks.TransactionCreator) {
+			},
+		},
+		{
+			name: "should return 400 Bad Request when some type was sent in different type",
+			fields: fields{
+				service:   new(mocks.TransactionCreator),
+				validator: validator.New(),
+			},
+			args: args{
+				body: strings.NewReader(`{"account_id":"1","operation_type_id":1,"amount":100.0}`),
+			},
+			wantErr:            false,
+			wantHttpStatusCode: http.StatusBadRequest,
+			responseBody:       `{"code":400,"description":"Unmarshal type error: expected=int64, got=string, field=account_id, offset=17"}` + "\n",
+			mock: func(service *mocks.TransactionCreator) {
+			},
+		},
+		{
 			name: "should return HTTP 500 Internal Server Error when create transaction return error",
 			fields: fields{
 				service:   new(mocks.TransactionCreator),

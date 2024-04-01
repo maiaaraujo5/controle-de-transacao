@@ -48,6 +48,12 @@ func (h *CreateTransaction) Handle(c echo.Context) error {
 		return err
 	}
 
+	err = h.validator.Struct(req)
+	if err != nil {
+		slog.Error("request body is not valid", "err:", err)
+		return err
+	}
+
 	transaction, err := h.service.Create(ctx, req.ToDomainModel())
 	if err != nil {
 		slog.Error("error to create transaction", "err:", err)

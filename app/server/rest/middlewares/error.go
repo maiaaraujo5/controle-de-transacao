@@ -31,9 +31,8 @@ func ErrorMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		err := next(c)
 		if err != nil {
-			defer func() {
-				err = switchError(c, err)
-			}()
+			err = switchError(c, err)
+
 		}
 
 		return err
@@ -50,6 +49,8 @@ func switchError(c echo.Context, err error) error {
 		return c.JSON(http.StatusNotFound, newError(http.StatusNotFound, err.Error()))
 	case IsValidationError(err):
 		return c.JSON(http.StatusUnprocessableEntity, newValidationError(err))
+	case IsEchoHTTPError(err):
+		return echoHTTPError(err, c)
 	default:
 		return c.JSON(http.StatusInternalServerError, newError(http.StatusInternalServerError, err.Error()))
 	}
@@ -87,6 +88,27 @@ func newValidationError(err error) *ErrorValidation {
 func IsValidationError(err error) bool {
 	for err != nil {
 		if _, ok := err.(validator.ValidationErrors); ok {
+			return true
+		}
+		err = errors2.Unwrap(err)
+	}
+
+	return false
+}
+
+func echoHTTPError(err error, c echo.Context) error {
+	httpError := err.(*echo.HTTPError)
+
+	return c.JSON(httpError.Code, &Error{
+		Code:        httpError.Code,
+		Description: httpError.Message.(string),
+	})
+
+}
+
+func IsEchoHTTPError(err error) bool {
+	for err != nil {
+		if _, ok := err.(*echo.HTTPError); ok {
 			return true
 		}
 		err = errors2.Unwrap(err)

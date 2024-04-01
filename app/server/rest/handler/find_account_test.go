@@ -101,6 +101,25 @@ func (s *FindAccountSuite) TestFindAccount_Handle() {
 			},
 		},
 		{
+			name: "should return HTTP 200 ok when account was found",
+			fields: fields{
+				service:   new(mocks.AccountFinder),
+				validator: validator.New(),
+			},
+			args: args{
+				id: "1",
+			},
+			wantErr:            false,
+			wantHttpStatusCode: http.StatusOK,
+			responseBody:       `{"account_id":1,"document_number":"123"}` + "\n",
+			mock: func(service *mocks.AccountFinder) {
+				service.On("Finder", mock.Anything, mock.Anything).Return(&model.Account{
+					ID:             1,
+					DocumentNumber: "123",
+				}, nil).Once()
+			},
+		},
+		{
 			name: "should return HTTP 500 Internal Server Error when service return error",
 			fields: fields{
 				service:   new(mocks.AccountFinder),

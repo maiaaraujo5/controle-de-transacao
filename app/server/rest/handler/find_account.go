@@ -3,11 +3,11 @@ package handler
 import (
 	"log/slog"
 	"net/http"
-	"strconv"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo/v4"
 	"github.com/maiaaraujo5/controle-de-transacao/app/domain/service"
+	"github.com/maiaaraujo5/controle-de-transacao/app/server/rest/request"
 	"github.com/maiaaraujo5/controle-de-transacao/app/server/rest/response"
 )
 
@@ -43,12 +43,12 @@ func (h *FindAccount) RegisterRoute(instance *echo.Echo) {
 func (h *FindAccount) Handle(c echo.Context) error {
 	ctx := c.Request().Context()
 
-	id, err := strconv.ParseInt(c.Param("accountId"), 10, 64)
+	find, err := request.NewFindAccount(c)
 	if err != nil {
 		return err
 	}
 
-	account, err := h.service.Finder(ctx, id)
+	account, err := h.service.Finder(ctx, find.AccountID)
 	if err != nil {
 		slog.Error("error to find account", "err:", err)
 		return err
