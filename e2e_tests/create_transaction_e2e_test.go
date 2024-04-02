@@ -182,3 +182,75 @@ func (s *E2ETestSuite) TestEndToEnd_Try_To_Create_Transaction_With_Invalid_Opera
 	err = response.Body.Close()
 	s.NoError(err)
 }
+
+func (s *E2ETestSuite) TestEndToEnd_Try_To_Create_Transaction_Without_Account_id() {
+	ctx := context.Background()
+
+	_, err := s.dbConn.NewInsert().Model(&model.Account{DocumentNumber: "123"}).Exec(ctx)
+	s.NoError(err)
+
+	requestStr := `{"operation_type_id":100,"amount":126.85}`
+
+	req, err := http.NewRequest(echo.POST, "http://localhost:8080/v1/transactions", strings.NewReader(requestStr))
+	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+	s.NoError(err)
+
+	client := http.Client{}
+	response, err := client.Do(req)
+	s.NoError(err)
+	s.Equal(http.StatusUnprocessableEntity, response.StatusCode)
+
+	byteBody, err := io.ReadAll(response.Body)
+
+	s.Equal(`{"code":422,"description":"The server understands the content type of the request entity but was unable to process the contained instructions.","validationError":[{"path":"CreateTransaction.AccountID","field":"AccountID","value":0,"message":"{AccountID} is a required field with type int64"}]}`, strings.Trim(string(byteBody), "\n"))
+	err = response.Body.Close()
+	s.NoError(err)
+}
+
+func (s *E2ETestSuite) TestEndToEnd_Try_To_Create_Transaction_Without_Operation_Type_Id() {
+	ctx := context.Background()
+
+	_, err := s.dbConn.NewInsert().Model(&model.Account{DocumentNumber: "123"}).Exec(ctx)
+	s.NoError(err)
+
+	requestStr := `{"account_id":1,"amount":126.85}`
+
+	req, err := http.NewRequest(echo.POST, "http://localhost:8080/v1/transactions", strings.NewReader(requestStr))
+	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+	s.NoError(err)
+
+	client := http.Client{}
+	response, err := client.Do(req)
+	s.NoError(err)
+	s.Equal(http.StatusUnprocessableEntity, response.StatusCode)
+
+	byteBody, err := io.ReadAll(response.Body)
+
+	s.Equal(`{"code":422,"description":"The server understands the content type of the request entity but was unable to process the contained instructions.","validationError":[{"path":"CreateTransaction.OperationTypeID","field":"OperationTypeID","value":0,"message":"{OperationTypeID} is a required field with type int64"}]}`, strings.Trim(string(byteBody), "\n"))
+	err = response.Body.Close()
+	s.NoError(err)
+}
+
+func (s *E2ETestSuite) TestEndToEnd_Try_To_Create_Transaction_Without_amount() {
+	ctx := context.Background()
+
+	_, err := s.dbConn.NewInsert().Model(&model.Account{DocumentNumber: "123"}).Exec(ctx)
+	s.NoError(err)
+
+	requestStr := `{"account_id":1,"operation_type_id":100}`
+
+	req, err := http.NewRequest(echo.POST, "http://localhost:8080/v1/transactions", strings.NewReader(requestStr))
+	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+	s.NoError(err)
+
+	client := http.Client{}
+	response, err := client.Do(req)
+	s.NoError(err)
+	s.Equal(http.StatusUnprocessableEntity, response.StatusCode)
+
+	byteBody, err := io.ReadAll(response.Body)
+
+	s.Equal(`{"code":422,"description":"The server understands the content type of the request entity but was unable to process the contained instructions.","validationError":[{"path":"CreateTransaction.Amount","field":"Amount","value":0,"message":"{Amount} is a required field with type float64"}]}`, strings.Trim(string(byteBody), "\n"))
+	err = response.Body.Close()
+	s.NoError(err)
+}

@@ -2,7 +2,7 @@
 
 [![Test](https://github.com/maiaaraujo5/controle-de-transacao/actions/workflows/tests.yaml/badge.svg)](https://github.com/maiaaraujo5/controle-de-transacao/actions/workflows/tests.yaml)
 
-Esta aplicação tem como objetivo simular operações em uma conta
+Esta aplicação visa simular operações em uma conta.
 
 ## Tecnologias Utilizadas
 
@@ -22,6 +22,7 @@ Esta aplicação tem como objetivo simular operações em uma conta
 - [Monkey](https://github.com/bouk/monkey)
 - [Swag](https://github.com/swaggo/swag)
 - [Echo-Swagger](https://github.com/swaggo/echo-swagger)
+- [Testcontainers-Go](https://github.com/testcontainers/testcontainers-go)
 
 
 ## Documentação
@@ -43,10 +44,53 @@ Esta aplicação tem como objetivo simular operações em uma conta
 
 ## Como rodar a aplicação
 
+### *Requisitos necessários*
+Os requisitos necessários para rodar a aplicação são:
+
+* [Docker](https://docs.docker.com/get-docker/)
+* [Docker-compose](https://docs.docker.com/compose/install/)
+* [Go](https://go.dev/dl/)
+
+**Clique nos links acima para instalar as dependências caso ainda não tenha no seu computador**
+
 ### make docker-compose-up
 
-Este comando é responsável por subir o banco de dados e a aplicação. Neste comando fazemos o build da imagem docker da
+Este comando é responsável por subir o banco de dados e a aplicação em container docker deixando a aplicação pronta para receber requests. Neste comando fazemos o build da imagem docker da
 aplicação.
+
+### make run-go
+Este comando é responsável por rodar a aplicação utilizando o go e subindo o banco de dados deixando a aplicação pronta para receber requests
+
+
+## Comandos no Makefile
+
+### make test
+Este comando é responsável por rodar todos os testes unitários da aplicação.
+
+### make e2e_test
+Este comando é responsável por rodar os testes end to end da aplicação.
+
+### make lint
+Este comando é responsável por rodar os linters.
+
+### make docker-compose-up
+Este comando é responsável por subir o banco de dados e a aplicação em container docker. Neste comando fazemos o build da imagem docker da
+aplicação.
+
+### make docker-compose-up-dependencies
+Este comando é responsável por subir somente o banco de dados presente no docker-compose.yaml
+
+### make docker-compose-down
+Este comando é responsável por parar os containers que estão rodando e fazem parte do docker-compose.yaml
+
+### make docker-build
+Este comando é responsável por criar imagem docker da aplicação
+
+### make generate-swagger
+Este comando é responsável por gerar a documentação swagger da aplicação
+
+### make run-go
+Este comando é responsável por rodar a aplicação utilizando o go e subindo o banco de dados deixando a aplicação pronta para receber requests
 
 ## Contato
 

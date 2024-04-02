@@ -10,6 +10,9 @@ lint:
 docker-compose-up: docker-build
 	cd build/docker && docker-compose up -d
 
+docker-compose-up-dependencies:
+	cd build/docker && docker-compose up postgres -d
+
 docker-compose-down:
 	cd build/docker && docker-compose down
 
@@ -18,3 +21,6 @@ docker-build:
 
 generate-swagger:
 	swag init --dir ./cmd/,./app/server/rest --output ./docs
+
+run-go: docker-compose-up-dependencies
+	CONF=./configs/default.yaml go run cmd/main.go

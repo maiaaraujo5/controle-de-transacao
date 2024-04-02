@@ -26,6 +26,23 @@ func (s *E2ETestSuite) Test_EndToEnd_Create_Account() {
 	s.NoError(err)
 }
 
+func (s *E2ETestSuite) Test_EndToEnd_Try_To_Create_Account_Without_Document_Number() {
+	requestStr := `{"document_number": ""}`
+	req, err := http.NewRequest(echo.POST, "http://localhost:8080/v1/accounts", strings.NewReader(requestStr))
+	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+	s.NoError(err)
+
+	client := http.Client{}
+	response, err := client.Do(req)
+	s.NoError(err)
+	s.Equal(http.StatusUnprocessableEntity, response.StatusCode)
+
+	byteBody, err := io.ReadAll(response.Body)
+	s.Equal(`{"code":422,"description":"The server understands the content type of the request entity but was unable to process the contained instructions.","validationError":[{"path":"CreateAccount.DocumentNumber","field":"DocumentNumber","value":"","message":"{DocumentNumber} is a required field with type string"}]}`, strings.Trim(string(byteBody), "\n"))
+	err = response.Body.Close()
+	s.NoError(err)
+}
+
 func (s *E2ETestSuite) Test_EndToEnd_Try_To_Create_Account_with_a_document_number_already_exists() {
 	ctx := context.Background()
 
