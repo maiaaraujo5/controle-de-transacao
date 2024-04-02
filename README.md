@@ -23,6 +23,14 @@ Esta aplicação tem como objetivo simular operações em uma conta
 - [Swag](https://github.com/swaggo/swag)
 - [Echo-Swagger](https://github.com/swaggo/echo-swagger)
 
+
+## Documentação
+- Quando a aplicação estiver rodando
+  <a href="http://localhost:8080/swagger/index.html" target="_blank">Clique aqui</a>
+  para acessar a documentação
+
+- [Clique Aqui](Controle%20de%20transa%C3%A7%C3%A3o%20-%20Lucas%20Maia.postman_collection.json) para pegar a collection do postman
+
 ## Checklist de Funcionalidades
 
 - [x] Criar contas
