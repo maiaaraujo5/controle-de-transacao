@@ -1,5 +1,8 @@
 test:
-	go test -race ./...
+	go test -race ./app/...
+
+e2e_test:
+	go test -race ./e2e_tests/...
 
 lint:
 	golangci-lint run ./... --config ./build/golangci-lint/config.yaml

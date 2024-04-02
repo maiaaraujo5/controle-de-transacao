@@ -117,7 +117,7 @@ paths:
     get:
       consumes:
       - application/json
-      description: Create an account by given document number
+      description: Find an account by given document number
       parameters:
       - description: ID account
         in: path
@@ -147,12 +147,12 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/middlewares.Error'
-      summary: Create an account
+      summary: Find an account
   /v1/transaction:
     post:
       consumes:
       - application/json
-      description: Create an account by given document number
+      description: Create a transaction
       parameters:
       - description: body for create one transaction
         in: body
@@ -179,7 +179,7 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/middlewares.Error'
-      summary: Create an account
+      summary: Create a transaction
 schemes:
 - http
 swagger: "2.0"

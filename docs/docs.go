@@ -76,14 +76,14 @@ const docTemplate = `{
         },
         "/v1/accounts/{accountId}": {
             "get": {
-                "description": "Create an account by given document number",
+                "description": "Find an account by given document number",
                 "consumes": [
                     "application/json"
                 ],
                 "produces": [
                     "application/json"
                 ],
-                "summary": "Create an account",
+                "summary": "Find an account",
                 "parameters": [
                     {
                         "type": "integer",
@@ -129,14 +129,14 @@ const docTemplate = `{
         },
         "/v1/transaction": {
             "post": {
-                "description": "Create an account by given document number",
+                "description": "Create a transaction",
                 "consumes": [
                     "application/json"
                 ],
                 "produces": [
                     "application/json"
                 ],
-                "summary": "Create an account",
+                "summary": "Create a transaction",
                 "parameters": [
                     {
                         "description": "body for create one transaction",

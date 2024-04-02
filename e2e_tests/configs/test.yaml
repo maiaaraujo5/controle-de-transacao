@@ -1,0 +1,7 @@
+app:
+  provider:
+    postgres:
+      url: localhost:5437
+      username: pismo
+      password: pismo
+      database: test

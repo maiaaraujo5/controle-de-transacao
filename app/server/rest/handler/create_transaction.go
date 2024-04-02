@@ -29,8 +29,8 @@ func (h *CreateTransaction) RegisterRoute(instance *echo.Echo) {
 
 // Handle godoc
 //
-//	@Summary		Create an account
-//	@Description	Create an account by given document number
+//	@Summary		Create a transaction
+//	@Description	Create a transaction
 //	@Accept			json
 //	@Produce		json
 //	@Param			account	body		request.CreateTransaction	true	"body for create one transaction"

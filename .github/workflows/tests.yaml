@@ -7,7 +7,7 @@ on:
 
 jobs:
 
-  test:
+  unit-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -20,6 +20,20 @@ jobs:
       - name: Test
         shell: bash
         run: make test
+
+  e2e-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.22'
+
+      - name: Test
+        shell: bash
+        run: make e2e_test
 
   lint:
     runs-on: ubuntu-latest
