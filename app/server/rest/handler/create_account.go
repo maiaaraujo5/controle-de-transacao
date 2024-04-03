@@ -44,19 +44,19 @@ func (h *CreateAccount) Handle(e echo.Context) error {
 
 	req, err := request.NewCreateAccount(e)
 	if err != nil {
-		slog.Error("error to bind create account request body", "err:", err)
+		slog.Error("error to bind create account request body", "err", err)
 		return err
 	}
 
 	err = h.validator.Struct(req)
 	if err != nil {
-		slog.Error("request body is not valid", "err:", err)
+		slog.Error("request body is not valid", "err", err)
 		return err
 	}
 
 	account, err := h.service.Create(ctx, req.ToDomainModel())
 	if err != nil {
-		slog.Error("error to create account", "err:", err)
+		slog.Error("error to create account", "err", err)
 		return err
 	}
 

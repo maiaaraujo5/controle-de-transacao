@@ -44,19 +44,19 @@ func (h *CreateTransaction) Handle(c echo.Context) error {
 
 	req, err := request.NewCreateTransaction(c)
 	if err != nil {
-		slog.Error("error to bind create transaction request body", "err:", err)
+		slog.Error("error to bind create transaction request body", "err", err)
 		return err
 	}
 
 	err = h.validator.Struct(req)
 	if err != nil {
-		slog.Error("request body is not valid", "err:", err)
+		slog.Error("request body is not valid", "err", err)
 		return err
 	}
 
 	transaction, err := h.service.Create(ctx, req.ToDomainModel())
 	if err != nil {
-		slog.Error("error to create transaction", "err:", err)
+		slog.Error("error to create transaction", "err", err)
 		return err
 	}
 

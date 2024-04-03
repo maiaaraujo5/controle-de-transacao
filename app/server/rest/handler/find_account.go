@@ -45,12 +45,13 @@ func (h *FindAccount) Handle(c echo.Context) error {
 
 	find, err := request.NewFindAccount(c)
 	if err != nil {
+		slog.Error("error to bind params", "err", err)
 		return err
 	}
 
 	account, err := h.service.Finder(ctx, find.AccountID)
 	if err != nil {
-		slog.Error("error to find account", "err:", err)
+		slog.Error("error to find account", "err", err)
 		return err
 	}
 
