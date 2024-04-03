@@ -42,7 +42,7 @@ Esta aplicação visa simular operações em uma conta.
 - [x] Erros personalizados
 - [x] Validação do request body
 
-## Como rodar a aplicação
+## Como rodar a aplicação 
 
 ### *Requisitos necessários*
 Os requisitos necessários para rodar a aplicação são:
